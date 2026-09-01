@@ -152,7 +152,7 @@
     }
 
     .brand img {
-      height: 38px;
+      height: 28px;
       width: auto;
       transition: height .35s var(--ease), transform .3s var(--ease)
     }
@@ -354,7 +354,7 @@
     }
 
     .bar.scrolled .brand img {
-      height: 30px
+      height: 25px
     }
 
     @media (prefers-reduced-motion:reduce) {
@@ -715,14 +715,13 @@
       display: block;
       height: 20px;
       width: auto;
-      opacity: .8;
-      filter: grayscale(1);
+      filter: brightness(0);
       transition: filter .55s var(--ease), opacity .55s var(--ease), transform .55s var(--ease)
     }
 
     footer .studio-mark:hover img,
     footer .studio-mark:focus-visible img {
-      filter: grayscale(1) blur(5px);
+      filter: brightness(0) blur(5px);
       opacity: .55;
       transform: scale(1.03)
     }
@@ -1205,6 +1204,1616 @@
         display: none
       }
     }
+
+    /* ---------- 交互式工作区演示(以素构真实界面为蓝本,1440×900 设计稿等比缩放) ---------- */
+    :root {
+      --am-bg: #fafaf9;
+      --am-surface: #ffffff;
+      --am-surface-2: #f5f5f4;
+      --am-surface-3: #efedec;
+      --am-chip: #f1f0ef;
+      --am-line: #e7e5e4;
+      --am-line-strong: #d6d3d1;
+      --am-ink: #1c1917;
+      --am-ink-2: #57534e;
+      --am-ink-3: #a8a29e;
+      --am-accent: #333333;
+      --am-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "PingFang SC", "Microsoft YaHei", monospace
+    }
+
+    .app-viewport {
+      margin-top: 4px
+    }
+
+    .app-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1440 / 900;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 16px 32px rgb(0 0 0 / 10%)
+    }
+
+    .app-mock {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      display: flex;
+      flex-direction: column;
+      transform: scale(var(--am-scale, .58));
+      transform-origin: 0 0;
+      background: var(--am-bg);
+      font-family: var(--sans);
+      text-align: left;
+      user-select: none;
+      -webkit-user-select: none
+    }
+
+    .app-mock button {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      font-family: inherit;
+      cursor: pointer
+    }
+
+    .app-mock button:focus-visible {
+      outline: 2px solid var(--am-ink);
+      outline-offset: 2px;
+      border-radius: 6px
+    }
+
+    .app-mock svg {
+      display: block;
+      flex: none
+    }
+
+    .app-mock img {
+      width: auto;
+      height: auto;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none
+    }
+
+    .app-mock .am-tb-logo {
+      width: 20px;
+      height: 20px
+    }
+
+    .app-mock a {
+      border-bottom: 0
+    }
+
+    .app-mock [role="button"]:focus-visible {
+      outline: 2px solid var(--am-ink);
+      outline-offset: 2px;
+      border-radius: 6px
+    }
+
+    .am-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 12px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-tb-logo {
+      width: 20px;
+      height: 20px
+    }
+
+    .am-tb-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      color: var(--am-ink)
+    }
+
+    .am-tb-sep,
+    .am-tb-site {
+      font-size: 13px;
+      color: var(--am-ink-3)
+    }
+
+    .am-tb-site {
+      color: var(--am-ink-2)
+    }
+
+    .am-body {
+      display: flex;
+      flex: 1;
+      min-height: 0
+    }
+
+    /* 文件树只属于「内容」页,与真实应用的视图结构一致 */
+    .app-mock:not([data-view="editor"]) .am-tree {
+      display: none
+    }
+
+    /* 活动栏 */
+    .am-act {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 52px;
+      padding: 8px 0;
+      flex: none;
+      background: var(--am-surface);
+      border-right: 1px solid var(--am-line)
+    }
+
+    .am-act-btn {
+      position: relative;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      color: var(--am-ink-3);
+      transition: background-color 160ms var(--ease), color 160ms var(--ease), transform 120ms ease-out
+    }
+
+    .am-act-btn:hover {
+      background: var(--am-surface-2);
+      color: var(--am-ink-2)
+    }
+
+    .am-act-btn:active {
+      transform: scale(.94)
+    }
+
+    .am-act-btn.on {
+      background: var(--am-surface-2);
+      color: var(--am-ink)
+    }
+
+    .am-act-btn.on::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      width: 2px;
+      height: 16px;
+      border-radius: 1px;
+      background: var(--am-accent)
+    }
+
+    .am-act-gap {
+      flex: 1
+    }
+
+    /* 文件树 */
+    .am-tree {
+      display: flex;
+      flex-direction: column;
+      width: 240px;
+      min-height: 0;
+      flex: none;
+      background: var(--am-surface);
+      border-right: 1px solid var(--am-line)
+    }
+
+    .am-tree-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 12px 4px
+    }
+
+    .am-tree-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--am-ink-3)
+    }
+
+    .am-tree-tools {
+      display: flex;
+      gap: 2px
+    }
+
+    .am-ib {
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      color: var(--am-ink-2);
+      transition: background-color 160ms var(--ease), color 160ms var(--ease), transform 120ms ease-out
+    }
+
+    .am-ib:hover {
+      background: var(--am-surface-2);
+      color: var(--am-ink)
+    }
+
+    .am-ib:active {
+      transform: scale(.92)
+    }
+
+    .am-tree-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 0 8px 16px
+    }
+
+    .am-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 30px;
+      padding-left: 4px;
+      padding-right: 4px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--am-ink);
+      cursor: pointer;
+      transition: background-color 160ms var(--ease)
+    }
+
+    .am-row:hover {
+      background: var(--am-surface-2)
+    }
+
+    .am-row.on {
+      background: var(--am-surface-3)
+    }
+
+    .am-row.on .am-label {
+      font-weight: 500
+    }
+
+    .am-depth1 {
+      padding-left: 18px
+    }
+
+    .am-w5 {
+      width: 20px;
+      flex: none
+    }
+
+    .am-ic {
+      display: flex;
+      color: var(--am-ink-3)
+    }
+
+    .am-ic-dir {
+      color: var(--am-ink-2)
+    }
+
+    .am-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .am-caret {
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      flex: none;
+      border-radius: 5px;
+      color: var(--am-ink-3);
+      transition: background-color 120ms var(--ease)
+    }
+
+    .am-caret:hover {
+      background: var(--am-chip);
+      color: var(--am-ink)
+    }
+
+    .am-caret svg {
+      transition: transform 300ms cubic-bezier(.34, 1.45, .64, 1)
+    }
+
+    .am-dir.closed .am-caret svg {
+      transform: rotate(-90deg)
+    }
+
+    .am-sub {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 320ms cubic-bezier(.3, 1.06, .4, 1)
+    }
+
+    .am-sub.closed {
+      grid-template-rows: 0fr
+    }
+
+    .am-sub-in {
+      overflow: hidden;
+      min-height: 0
+    }
+
+    /* 主区 */
+    .am-main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      background: var(--am-bg)
+    }
+
+    .am-dochead {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 44px;
+      padding: 0 16px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-doc-title {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13.5px;
+      font-weight: 600
+    }
+
+    .am-saved {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--am-ink-3)
+    }
+
+    .am-modes {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 2px;
+      border: 1px solid var(--am-line);
+      border-radius: 6px;
+      background: var(--am-bg)
+    }
+
+    .am-mode {
+      justify-content: center;
+      width: 28px;
+      height: 24px;
+      border-radius: 5px;
+      color: var(--am-ink-3);
+      transition: background-color 160ms var(--ease), color 160ms var(--ease), box-shadow 160ms var(--ease)
+    }
+
+    .am-mode:hover {
+      color: var(--am-ink)
+    }
+
+    .am-mode.on {
+      background: var(--am-surface);
+      color: var(--am-ink);
+      box-shadow: 0 0 0 1px var(--am-line)
+    }
+
+    .am-split {
+      display: flex;
+      flex: 1;
+      min-height: 0
+    }
+
+    .am-editor {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 0 0 52%;
+      background: var(--am-surface)
+    }
+
+    .am-split[data-mode="edit"] .am-preview,
+    .am-split[data-mode="edit"] .am-divider,
+    .am-split[data-mode="preview"] .am-editor,
+    .am-split[data-mode="preview"] .am-divider {
+      display: none
+    }
+
+    .am-split[data-mode="edit"] .am-editor {
+      flex: 1 1 auto
+    }
+
+    .am-divider {
+      position: relative;
+      width: 1px;
+      flex: none;
+      background: var(--am-line);
+      cursor: col-resize
+    }
+
+    .am-divider::before {
+      content: "";
+      position: absolute;
+      inset: 0 -3px
+    }
+
+    .am-divider:hover,
+    .am-divider.drag {
+      background: var(--am-line-strong)
+    }
+
+    .am-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 36px;
+      padding: 0 8px;
+      flex: none;
+      border-bottom: 1px solid var(--am-line);
+      overflow: hidden
+    }
+
+    .am-tb {
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 4px;
+      border-radius: 5px;
+      color: var(--am-ink-3);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--sans);
+      transition: background-color 160ms var(--ease), color 160ms var(--ease)
+    }
+
+    .am-tb:hover {
+      background: var(--am-surface-2);
+      color: var(--am-ink)
+    }
+
+    .am-tb.b {
+      font-weight: 700
+    }
+
+    .am-tb.i {
+      font-style: italic
+    }
+
+    .am-tb.s {
+      text-decoration: line-through
+    }
+
+    .am-tsep {
+      width: 1px;
+      height: 14px;
+      margin: 0 4px;
+      flex: none;
+      background: var(--am-line)
+    }
+
+    .am-codescroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto
+    }
+
+    .am-code {
+      margin: 0;
+      padding: 12px 16px 32px 14px;
+      font-family: var(--am-mono);
+      font-size: 13.5px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--am-ink)
+    }
+
+    .am-meta {
+      color: var(--am-ink-3)
+    }
+
+    .am-h {
+      font-weight: 600;
+      color: var(--am-ink)
+    }
+
+    .am-h1 {
+      font-size: 1.18em;
+      font-weight: 700
+    }
+
+    .am-h2 {
+      font-size: 1.1em;
+      font-weight: 650
+    }
+
+    .am-strong {
+      font-weight: 650
+    }
+
+    .am-em {
+      font-style: italic
+    }
+
+    .am-strike {
+      text-decoration: line-through;
+      color: var(--am-ink-3)
+    }
+
+    .am-link {
+      color: var(--am-accent);
+      text-decoration: underline
+    }
+
+    .am-codec {
+      font-family: var(--am-mono);
+      color: var(--am-ink-2)
+    }
+
+    .am-kw {
+      font-weight: 600
+    }
+
+    .am-str {
+      color: #0f766e
+    }
+
+    .am-type {
+      color: #1d4ed8
+    }
+
+    /* 预览(.wide = 设计稿宽度 ≥900px 时的桌面布局,由 JS 按设计稿宽度切换,与真实 iframe 断点一致) */
+    .am-preview {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      background: var(--am-bg)
+    }
+
+    .am-topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 54px;
+      padding: 0 12px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-menu {
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      flex: none;
+      border: 1px solid var(--am-line);
+      border-radius: 10px;
+      background: var(--am-surface);
+      color: var(--am-ink);
+      transition: background-color 160ms var(--ease), transform 120ms ease-out
+    }
+
+    .am-menu:hover {
+      background: var(--am-chip)
+    }
+
+    .am-menu:active {
+      transform: scale(.95)
+    }
+
+    .am-crumbs {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      min-width: 0;
+      overflow: hidden;
+      font-size: 12.5px;
+      line-height: 1.4;
+      white-space: nowrap;
+      color: var(--am-ink-3)
+    }
+
+    .am-crumbs .cur {
+      flex-shrink: 0;
+      color: var(--am-ink);
+      font-weight: 550
+    }
+
+    .am-crumbs .sep {
+      flex-shrink: 0;
+      opacity: .55
+    }
+
+    .am-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: auto;
+      line-height: 1.3
+    }
+
+    .am-brand b {
+      font-size: 13.5px;
+      font-weight: 650;
+      letter-spacing: -.01em;
+      color: var(--am-ink)
+    }
+
+    .am-brand small {
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 11px;
+      color: var(--am-ink-3)
+    }
+
+    .am-pbody {
+      display: flex;
+      flex: 1;
+      min-height: 0
+    }
+
+    .am-pside {
+      display: none;
+      flex-direction: column;
+      width: 260px;
+      padding: 24px 16px 32px;
+      flex: none;
+      background: var(--am-surface);
+      border-right: 1px solid var(--am-line);
+      overflow-y: auto
+    }
+
+    .am-psite {
+      padding: 4px 8px;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -.01em;
+      color: var(--am-ink)
+    }
+
+    .am-pdesc {
+      margin: 8px 0 0;
+      padding: 0 8px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--am-ink-2)
+    }
+
+    .am-pnav {
+      margin-top: 20px
+    }
+
+    .am-pnav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .am-pnav ul ul {
+      margin: 0 0 0 7px;
+      padding: 2px 0 6px 10px;
+      border-left: 1px solid var(--am-line)
+    }
+
+    .am-pnav-dirrow {
+      display: flex;
+      align-items: center;
+      min-width: 0
+    }
+
+    .am-pnav-dirrow .am-caret {
+      margin-right: 2px
+    }
+
+    .am-pnav-dirname {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 8px 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--am-ink-3)
+    }
+
+    .am-pnav-link {
+      display: block;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: var(--am-ink-2);
+      cursor: pointer;
+      transition: background-color 120ms var(--ease)
+    }
+
+    .am-pnav-link:hover {
+      background: var(--am-chip);
+      color: var(--am-ink)
+    }
+
+    .am-pnav-link.cur {
+      background: var(--am-chip);
+      color: var(--am-ink);
+      font-weight: 600
+    }
+
+    .am-preview.wide .am-topbar {
+      display: none
+    }
+
+    .am-preview.wide .am-pside {
+      display: flex
+    }
+
+    .am-pscroll {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto
+    }
+
+    .am-psdoc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 20px 0
+    }
+
+    .am-preview.wide .am-psdoc {
+      padding: 56px 32px 0
+    }
+
+    .am-psfoot {
+      padding: 28px 20px 32px
+    }
+
+    .am-preview.wide .am-psfoot {
+      padding: 28px 32px 40px
+    }
+
+    .am-pt {
+      margin: 0 0 8px;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.25;
+      text-align: left
+    }
+
+    .am-pb {
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: var(--am-ink);
+      text-align: left
+    }
+
+    .am-pb h1,
+    .am-pb h2,
+    .am-pb h3 {
+      margin: 1.6em 0 .6em;
+      letter-spacing: -.01em;
+      line-height: 1.35;
+      text-align: left
+    }
+
+    .am-pb>h1:first-child {
+      margin-top: 0
+    }
+
+    .am-pb h1 {
+      font-size: 26px;
+      font-weight: 700
+    }
+
+    .am-pb h2 {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--am-line);
+      font-size: 21px;
+      font-weight: 650
+    }
+
+    .am-pb h3 {
+      font-size: 17px;
+      font-weight: 650
+    }
+
+    .am-pb p {
+      margin: 0 0 1em
+    }
+
+    .am-pb a {
+      color: var(--am-accent);
+      text-decoration: none;
+      cursor: pointer
+    }
+
+    .am-pb a:hover {
+      text-decoration: underline
+    }
+
+    .am-pb code {
+      padding: .15em .4em;
+      border-radius: 4px;
+      background: var(--am-surface-2);
+      font-family: var(--am-mono);
+      font-size: .88em
+    }
+
+    .am-pb pre {
+      margin: 0 0 1.2em;
+      padding: 16px;
+      border: 1px solid var(--am-line);
+      border-radius: 8px;
+      background: var(--am-surface);
+      overflow-x: auto;
+      line-height: 1.6
+    }
+
+    .am-pb pre code {
+      padding: 0;
+      background: transparent;
+      font-size: 13px
+    }
+
+    .am-pb blockquote {
+      margin: 0 0 1em;
+      padding: 2px 0 2px 16px;
+      border-left: 3px solid var(--am-line);
+      color: var(--am-ink-2)
+    }
+
+    .am-pb ul,
+    .am-pb ol {
+      margin: 0 0 1em;
+      padding-left: 1.6em
+    }
+
+    .am-pb li {
+      margin: .25em 0
+    }
+
+    .am-pb li.task {
+      list-style: none;
+      margin-left: -1.4em
+    }
+
+    .am-pb li.task input {
+      margin-right: 8px;
+      vertical-align: -2px;
+      pointer-events: none
+    }
+
+    .am-pb table {
+      width: 100%;
+      margin: 0 0 1.2em;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.6
+    }
+
+    .am-pb th,
+    .am-pb td {
+      padding: 8px 12px;
+      border: 1px solid var(--am-line);
+      text-align: left
+    }
+
+    .am-pb th {
+      background: var(--am-surface-2);
+      font-weight: 600
+    }
+
+    .am-pb hr {
+      margin: 2em 0;
+      border: none;
+      border-top: 1px solid var(--am-line)
+    }
+
+    .am-pager {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 72px
+    }
+
+    .am-pager:empty {
+      display: none
+    }
+
+    .am-pgi {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 46%;
+      padding: 10px 16px;
+      border: 1px solid var(--am-line);
+      border-radius: 10px;
+      background: var(--am-surface);
+      font-size: 13.5px;
+      color: var(--am-ink-2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: border-color 160ms var(--ease), background-color 160ms var(--ease), color 160ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease)
+    }
+
+    .am-pgi:hover {
+      border-color: var(--am-accent);
+      background: var(--am-chip);
+      color: var(--am-ink);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgb(28 25 23 / 8%)
+    }
+
+    .am-pgi:active {
+      transform: translateY(0);
+      box-shadow: none
+    }
+
+    .am-pgi.next {
+      margin-left: auto
+    }
+
+    .am-pgi .tag {
+      transition: transform 220ms var(--ease)
+    }
+
+    .am-pgi.prev:hover .tag {
+      transform: translateX(-3px)
+    }
+
+    .am-pgi.next:hover .tag {
+      transform: translateX(3px)
+    }
+
+    .am-psfoot {
+      display: flex;
+      justify-content: center;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px 32px;
+      font-size: 12.5px
+    }
+
+    .am-psfoot a {
+      display: inline-flex;
+      padding: 5px 14px;
+      border: 1px solid var(--am-line);
+      border-radius: 999px;
+      color: var(--am-ink-3);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 160ms var(--ease), border-color 160ms var(--ease), background-color 160ms var(--ease)
+    }
+
+    .am-psfoot a:hover {
+      color: var(--am-ink);
+      border-color: var(--am-ink-3);
+      background: var(--am-surface)
+    }
+
+    .am-fade {
+      transition: opacity 150ms var(--ease)
+    }
+
+    .am-fade.out {
+      opacity: 0
+    }
+
+    /* 放大的交互演示图:破栏居中,超出正文列宽但不超出视口 */
+    .figure-wide {
+      max-width: none;
+      width: min(1040px, calc(100vw - 48px));
+      margin-left: 50%;
+      translate: -50% 0
+    }
+
+    /* 活动栏视图切换 */
+    .am-view {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0
+    }
+
+    .am-view[hidden] {
+      display: none
+    }
+
+    .am-view.in {
+      animation: am-view-in 300ms var(--ease) both
+    }
+
+    @keyframes am-view-in {
+
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* 通用控件(站点/构建/主题/发布页,与素构 base.css 同规格) */
+    .am-panel {
+      background: var(--am-surface);
+      border: 1px solid var(--am-line);
+      border-radius: 8px
+    }
+
+    .am-p24 {
+      padding: 24px
+    }
+
+    .am-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto
+    }
+
+    .am-col {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 40px 32px
+    }
+
+    .am-vstack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px
+    }
+
+    .am-h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -.01em;
+      color: var(--am-ink)
+    }
+
+    .am-h2t {
+      margin: 0 0 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--am-ink)
+    }
+
+    .am-vsub {
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--am-ink-2)
+    }
+
+    .am-flabel {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--am-ink-2)
+    }
+
+    .am-fhint {
+      margin: 6px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--am-ink-3)
+    }
+
+    .am-fgap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .am-grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .am-input {
+      width: 100%;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--am-line);
+      border-radius: 8px;
+      background: var(--am-surface);
+      color: var(--am-ink);
+      font-family: inherit;
+      font-size: 13px;
+      cursor: default;
+      transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease)
+    }
+
+    .am-input::placeholder {
+      color: var(--am-ink-3)
+    }
+
+    .am-input:hover {
+      border-color: var(--am-line-strong)
+    }
+
+    .am-input:focus {
+      outline: none;
+      border-color: var(--am-accent);
+      box-shadow: 0 0 0 3px rgb(51 51 51 / 8%)
+    }
+
+    .am-input.mono {
+      font-family: var(--am-mono);
+      font-size: 12.5px
+    }
+
+    .am-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 160ms var(--ease), border-color 160ms var(--ease), color 160ms var(--ease), transform 120ms ease-out
+    }
+
+    .am-btn:active {
+      transform: scale(.97)
+    }
+
+    .am-btn-primary {
+      background: var(--am-accent);
+      color: #fff
+    }
+
+    .am-btn-primary:hover {
+      background: var(--am-ink)
+    }
+
+    .am-btn-secondary {
+      background: var(--am-surface);
+      border-color: var(--am-line);
+      color: var(--am-ink)
+    }
+
+    .am-btn-secondary:hover {
+      background: var(--am-surface-2)
+    }
+
+    .am-btn-ghost {
+      background: transparent;
+      color: var(--am-ink-2)
+    }
+
+    .am-btn-ghost:hover {
+      background: var(--am-surface-2);
+      color: var(--am-ink)
+    }
+
+    .am-btn[disabled] {
+      opacity: .45;
+      pointer-events: none
+    }
+
+    .am-btn-sm {
+      height: 26px;
+      padding: 0 8px;
+      font-size: 12px
+    }
+
+    .am-check {
+      width: 14px;
+      height: 14px;
+      margin: 0;
+      flex: none;
+      accent-color: var(--am-accent)
+    }
+
+    .am-check:disabled {
+      opacity: 1
+    }
+
+    .am-checkrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--am-ink-2);
+      cursor: default
+    }
+
+    .am-select {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 192px;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--am-line);
+      border-radius: 8px;
+      background: var(--am-surface);
+      font-size: 13px;
+      color: var(--am-ink);
+      transition: border-color 160ms var(--ease)
+    }
+
+    .am-select:hover {
+      border-color: var(--am-line-strong)
+    }
+
+    .am-select .am-ic {
+      color: var(--am-ink-3)
+    }
+
+    .am-swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .am-swatch i {
+      display: block;
+      width: 32px;
+      height: 32px;
+      padding: 2px;
+      border: 1px solid var(--am-line);
+      border-radius: 8px
+    }
+
+    .am-swatch i b {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      background: #333
+    }
+
+    .am-swatch span,
+    .am-cfg-val {
+      font-family: var(--am-mono);
+      font-size: 12px;
+      color: var(--am-ink-2)
+    }
+
+    .am-cfg-row {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .am-range {
+      width: 192px;
+      accent-color: var(--am-accent)
+    }
+
+    .am-range:disabled {
+      opacity: 1
+    }
+
+    .am-mono {
+      font-family: var(--am-mono)
+    }
+
+    .am-path {
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--am-surface-2);
+      font-family: var(--am-mono);
+      font-size: 12px;
+      color: var(--am-ink-2);
+      word-break: break-all
+    }
+
+    /* 视图头(构建/主题) */
+    .am-vhead {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 56px;
+      padding: 0 20px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-vhead .t {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--am-ink)
+    }
+
+    .am-vhead .s {
+      font-size: 12px;
+      color: var(--am-ink-3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    /* 构建页 */
+    .am-bbody {
+      display: flex;
+      flex: 1;
+      min-height: 0
+    }
+
+    .am-baside {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 280px;
+      padding: 20px;
+      flex: none;
+      background: var(--am-surface);
+      border-right: 1px solid var(--am-line);
+      overflow-y: auto
+    }
+
+    .am-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 20px
+    }
+
+    .am-stat {
+      font-size: 13px;
+      color: var(--am-ink-2)
+    }
+
+    .am-stat b {
+      margin-right: 4px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--am-ink)
+    }
+
+    .am-bactions {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--am-line);
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .am-bactions .am-btn {
+      width: 100%
+    }
+
+    .am-bmain {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0
+    }
+
+    .am-pvhead {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-pvhead .t {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--am-ink-2)
+    }
+
+    .am-pvhead .s {
+      font-size: 11.5px;
+      color: var(--am-ink-3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .am-bpv {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      background: var(--am-bg)
+    }
+
+    /* 主题页 */
+    .am-taside {
+      width: 264px;
+      padding: 12px;
+      flex: none;
+      background: var(--am-surface);
+      border-right: 1px solid var(--am-line);
+      overflow-y: auto
+    }
+
+    .am-tlist {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px
+    }
+
+    .am-theme-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      transition: background-color 160ms var(--ease), border-color 160ms var(--ease)
+    }
+
+    .am-theme-item:hover {
+      background: var(--am-surface-2)
+    }
+
+    .am-theme-item.current {
+      border-color: var(--am-line);
+      background: var(--am-surface-2)
+    }
+
+    .am-theme-item .nm {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--am-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .am-theme-item .v {
+      margin: 0;
+      font-family: var(--am-mono);
+      font-size: 11px;
+      color: var(--am-ink-3)
+    }
+
+    .am-badge {
+      flex: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--am-accent);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .02em
+    }
+
+    .am-tact {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      opacity: 0;
+      transition: opacity 160ms var(--ease)
+    }
+
+    .am-theme-item:hover .am-tact {
+      opacity: 1
+    }
+
+    .am-tlabel {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--am-ink-2);
+      margin: 0
+    }
+
+    .am-tempty {
+      margin: 4px 0 0;
+      border: 1px dashed var(--am-line);
+      border-radius: 8px;
+      padding: 16px 12px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--am-ink-3)
+    }
+
+    .am-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 40px;
+      padding: 0 16px;
+      flex: none;
+      background: var(--am-surface);
+      border-bottom: 1px solid var(--am-line)
+    }
+
+    .am-tab {
+      height: 28px;
+      padding: 0 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--am-ink-2);
+      transition: background-color 160ms var(--ease), color 160ms var(--ease)
+    }
+
+    .am-tab:hover {
+      background: var(--am-surface-2)
+    }
+
+    .am-tab.active {
+      background: var(--am-surface-3);
+      color: var(--am-ink)
+    }
+
+    .am-tab[disabled] {
+      opacity: .4;
+      pointer-events: none
+    }
+
+    .am-tconf {
+      flex: 1;
+      min-width: 0;
+      overflow-y: auto;
+      padding: 24px
+    }
+
+    .am-cfg {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 420px
+    }
+
+    .am-tpv {
+      display: flex;
+      flex-direction: column;
+      width: 46%;
+      min-width: 320px;
+      flex: none;
+      border-left: 1px solid var(--am-line)
+    }
+
+    @media (max-width:680px) {
+      .app-viewport {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch
+      }
+
+      .app-stage {
+        width: 680px
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .am-sub,
+      .am-caret svg,
+      .am-fade,
+      .am-pgi,
+      .am-pgi .tag {
+        transition: none
+      }
+
+      .am-view.in {
+        animation: none
+      }
+    }
   </style>
 </head>
 
@@ -1305,12 +2914,537 @@ Write Markdown in folders, build with one click, preview locally, publish to Git
       </a>
     </div>
 
-    <div class="figure" data-reveal="fade" style="--i:3">
+    <div class="figure figure-wide" data-reveal="fade" style="--i:3">
       <figure>
-        <img src="assets/preview-editor.png" alt="素构的主工作区" loading="eager">
-        <figcaption data-zh="素构的主工作区：文件树、Markdown 编辑器与实时预览。"
-          data-en="Plainstruct’s main workspace: file tree, Markdown editor and live preview.">素构的主工作区：文件树、Markdown
-          编辑器与实时预览。</figcaption>
+        <div class="app-viewport" id="appViewport">
+          <div class="app-stage" id="appStage">
+            <div class="app-mock" id="appMock" role="group" data-view="editor" aria-label="素构主工作区演示">
+
+              <!-- 标题栏 -->
+              <div class="am-titlebar">
+                <img class="am-tb-logo" src="assets/plainstruct-logo.svg" alt="">
+                <span class="am-tb-name" data-zh="素构" data-en="Plainstruct">素构</span>
+                <span class="am-tb-sep">/</span>
+                <span class="am-tb-site" data-zh="演示站点" data-en="Demo Site">演示站点</span>
+              </div>
+
+              <div class="am-body">
+                <!-- 活动栏 -->
+                <nav class="am-act" aria-label="导航">
+                  <button class="am-act-btn on" type="button" data-icon="doc" data-size="19" data-vp="editor"
+                    data-zh-title="内容" data-en-title="Content" aria-label="内容"></button>
+                  <button class="am-act-btn" type="button" data-icon="sliders" data-size="19" data-vp="site"
+                    data-zh-title="站点" data-en-title="Site" aria-label="站点"></button>
+                  <button class="am-act-btn" type="button" data-icon="box" data-size="19" data-vp="build"
+                    data-zh-title="构建" data-en-title="Build" aria-label="构建"></button>
+                  <button class="am-act-btn" type="button" data-icon="palette" data-size="19" data-vp="theme"
+                    data-zh-title="主题" data-en-title="Theme" aria-label="主题"></button>
+                  <button class="am-act-btn" type="button" data-icon="upload" data-size="19" data-vp="publish"
+                    data-zh-title="发布" data-en-title="Publish" aria-label="发布"></button>
+                  <span class="am-act-gap"></span>
+                  <button class="am-act-btn" type="button" data-icon="settings" data-size="18"
+                    data-zh-title="设置" data-en-title="Settings" aria-label="设置"></button>
+                  <button class="am-act-btn" type="button" data-icon="info" data-size="18"
+                    data-zh-title="关于" data-en-title="About" aria-label="关于"></button>
+                </nav>
+
+                <!-- 文件树 -->
+                <aside class="am-tree">
+                  <div class="am-tree-head">
+                    <span class="am-tree-title" data-zh="内容 · 4" data-en="Content · 4">内容 · 4</span>
+                    <div class="am-tree-tools">
+                      <button class="am-ib" type="button" data-icon="checkSquare"
+                        data-zh-title="多选模式" data-en-title="Multi-select" aria-label="多选模式"></button>
+                      <button class="am-ib" type="button" data-icon="filePlus"
+                        data-zh-title="新建文档" data-en-title="New document" aria-label="新建文档"></button>
+                      <button class="am-ib" type="button" data-icon="folderPlus"
+                        data-zh-title="新建文件夹" data-en-title="New folder" aria-label="新建文件夹"></button>
+                      <button class="am-ib" type="button" data-icon="download"
+                        data-zh-title="导入文件" data-en-title="Import files" aria-label="导入文件"></button>
+                    </div>
+                  </div>
+                  <div class="am-tree-scroll">
+                    <div class="am-row on" role="button" tabindex="0" data-doc="index.md" title="index.md">
+                      <span class="am-w5"></span>
+                      <i class="am-ic" data-icon="home" data-size="15" aria-hidden="true"></i>
+                      <span class="am-label" data-zh="主页" data-en="Home">主页</span>
+                    </div>
+                    <div class="am-dir" id="amGuideDir">
+                      <div class="am-row" role="button" tabindex="0" id="amGuideRow">
+                        <button class="am-caret" type="button" id="amGuideCaret" data-icon="chevronDown" data-size="13"
+                          data-zh-title="折叠" data-en-title="Collapse" aria-label="guide"></button>
+                        <i class="am-ic am-ic-dir" data-icon="folder" data-size="15" aria-hidden="true"></i>
+                        <span class="am-label">guide</span>
+                      </div>
+                      <div class="am-sub" id="amGuideSub">
+                        <div class="am-sub-in">
+                          <div class="am-row am-depth1" role="button" tabindex="0" data-doc="guide/markdown.md"
+                            title="markdown.md">
+                            <span class="am-w5"></span>
+                            <i class="am-ic" data-icon="doc" data-size="15" aria-hidden="true"></i>
+                            <span class="am-label">markdown</span>
+                          </div>
+                          <div class="am-row am-depth1" role="button" tabindex="0" data-doc="guide/quickstart.md"
+                            title="quickstart.md">
+                            <span class="am-w5"></span>
+                            <i class="am-ic" data-icon="doc" data-size="15" aria-hidden="true"></i>
+                            <span class="am-label">quickstart</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="am-row" role="button" tabindex="0" data-doc="about.md" title="about.md">
+                      <span class="am-w5"></span>
+                      <i class="am-ic" data-icon="doc" data-size="15" aria-hidden="true"></i>
+                      <span class="am-label">about</span>
+                    </div>
+                  </div>
+                </aside>
+
+                <!-- 编辑器 + 预览 -->
+                <section class="am-main">
+                  <div class="am-view" data-vp="editor">
+                  <header class="am-dochead">
+                    <span class="am-doc-title" id="amDocTitle">首页</span>
+                    <span class="am-saved">
+                      <i class="am-ic" data-icon="check" data-size="13" aria-hidden="true"></i>
+                      <span data-zh="已保存" data-en="Saved">已保存</span>
+                    </span>
+                    <div class="am-modes" role="group" aria-label="显示模式">
+                      <button class="am-mode" type="button" data-mode="edit" data-icon="code" data-size="15"
+                        data-zh-title="仅编辑" data-en-title="Edit only" aria-label="仅编辑"></button>
+                      <button class="am-mode on" type="button" data-mode="split" data-icon="columns" data-size="15"
+                        data-zh-title="对照" data-en-title="Split" aria-label="对照"></button>
+                      <button class="am-mode" type="button" data-mode="preview" data-icon="eye" data-size="15"
+                        data-zh-title="仅预览" data-en-title="Preview only" aria-label="仅预览"></button>
+                    </div>
+                  </header>
+
+                  <div class="am-split" id="amSplit" data-mode="split">
+                    <div class="am-editor" id="amEditorPane">
+                      <div class="am-toolbar">
+                        <button class="am-tb" type="button" data-zh-title="标题 1" data-en-title="Heading 1">H1</button>
+                        <button class="am-tb" type="button" data-zh-title="标题 2" data-en-title="Heading 2">H2</button>
+                        <button class="am-tb" type="button" data-zh-title="标题 3" data-en-title="Heading 3">H3</button>
+                        <span class="am-tsep"></span>
+                        <button class="am-tb b" type="button" data-zh-title="加粗 (Ctrl+B)" data-en-title="Bold (Ctrl+B)">B</button>
+                        <button class="am-tb i" type="button" data-zh-title="斜体 (Ctrl+I)" data-en-title="Italic (Ctrl+I)">I</button>
+                        <button class="am-tb s" type="button" data-zh-title="删除线" data-en-title="Strikethrough">S</button>
+                        <button class="am-tb" type="button" data-icon="code"
+                          data-zh-title="行内代码" data-en-title="Inline code" aria-label="行内代码"></button>
+                        <span class="am-tsep"></span>
+                        <button class="am-tb" type="button" data-icon="quote"
+                          data-zh-title="引用" data-en-title="Quote" aria-label="引用"></button>
+                        <button class="am-tb" type="button" data-icon="listBullet"
+                          data-zh-title="无序列表" data-en-title="Bullet list" aria-label="无序列表"></button>
+                        <button class="am-tb" type="button" data-icon="listOrdered"
+                          data-zh-title="有序列表" data-en-title="Ordered list" aria-label="有序列表"></button>
+                        <button class="am-tb" type="button" data-icon="checkSquare"
+                          data-zh-title="任务列表" data-en-title="Task list" aria-label="任务列表"></button>
+                        <span class="am-tsep"></span>
+                        <button class="am-tb" type="button" data-icon="link"
+                          data-zh-title="插入链接" data-en-title="Insert link" aria-label="插入链接"></button>
+                        <button class="am-tb" type="button" data-icon="image"
+                          data-zh-title="插入图片" data-en-title="Insert image" aria-label="插入图片"></button>
+                        <button class="am-tb" type="button" data-icon="squareCode"
+                          data-zh-title="代码块" data-en-title="Code block" aria-label="代码块"></button>
+                        <span class="am-tsep"></span>
+                        <button class="am-tb" type="button" data-icon="table"
+                          data-zh-title="插入表格" data-en-title="Insert table" aria-label="插入表格"></button>
+                        <button class="am-tb" type="button" data-icon="minus"
+                          data-zh-title="插入分割线" data-en-title="Insert divider" aria-label="插入分割线"></button>
+                      </div>
+                      <div class="am-codescroll" id="amCodeScroll">
+                        <pre class="am-code am-fade" id="amCode"></pre>
+                      </div>
+                    </div>
+
+                    <div class="am-divider" id="amDivider" role="separator" aria-orientation="vertical"></div>
+
+                    <div class="am-preview">
+                      <div class="am-topbar">
+                        <button class="am-menu" type="button" aria-label="文档列表">
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                            <path d="M2.5 4.5h13M2.5 9h13M2.5 13.5h13"></path>
+                          </svg>
+                        </button>
+                        <span class="am-crumbs" id="amCrumbs"></span>
+                        <span class="am-brand">
+                          <b data-zh="演示站点" data-en="Demo Site">演示站点</b>
+                          <small data-zh="素构自带的示例文档站" data-en="The sample docs bundled with Plainstruct">素构自带的示例文档站</small>
+                        </span>
+                      </div>
+                      <div class="am-pbody">
+                        <aside class="am-pside">
+                          <div class="am-psite" data-zh="演示站点" data-en="Demo Site">演示站点</div>
+                          <p class="am-pdesc" data-zh="素构自带的示例文档站"
+                            data-en="The sample docs bundled with Plainstruct">素构自带的示例文档站</p>
+                          <nav class="am-pnav" id="amPNav"></nav>
+                        </aside>
+                        <div class="am-pscroll" id="amPScroll">
+                          <article class="am-psdoc am-fade" id="amPDoc"></article>
+                          <footer class="am-psfoot">
+                            <a href="#" id="amFoot" data-zh="由 Plainstruct 创建" data-en="Made with Plainstruct">由
+                              Plainstruct 创建</a>
+                          </footer>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
+                  <!-- 站点设置 -->
+                  <div class="am-view" data-vp="site" hidden>
+                    <div class="am-scroll">
+                      <div class="am-col am-vstack" style="gap:32px">
+                        <h1 class="am-h1" data-zh="站点设置" data-en="Site settings">站点设置</h1>
+
+                        <section class="am-panel am-p24">
+                          <div class="am-fgap">
+                            <div>
+                              <label class="am-flabel" data-zh="站点名称" data-en="Site name">站点名称</label>
+                              <input class="am-input" type="text" readonly data-zh-value="演示站点" data-en-value="Demo Site">
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="站点描述" data-en="Description">站点描述</label>
+                              <input class="am-input" type="text" readonly data-zh-value="素构自带的示例文档站"
+                                data-en-value="The sample docs bundled with Plainstruct">
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="浏览器标题格式" data-en="Browser title format">浏览器标题格式</label>
+                              <input class="am-input" type="text" readonly placeholder="{page} · {site}" spellcheck="false">
+                              <p class="am-fhint"
+                                data-zh="用 {page} 表示页面标题、{site} 表示站点名称。留空使用默认连接符「·」。"
+                                data-en="Use {page} for the page title and {site} for the site name. Leave empty for the default “·”.">
+                              </p>
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="站点语言" data-en="Site language">站点语言</label>
+                              <div class="am-select"><span>简体中文</span><i class="am-ic" data-icon="chevronDown" data-size="14"
+                                  aria-hidden="true"></i></div>
+                              <p class="am-fhint"
+                                data-zh="生成网页的语言标记,便于搜索引擎与朗读工具识别。"
+                                data-en="Language tag for generated pages, used by search engines and screen readers.">
+                              </p>
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="站点 Logo" data-en="Site logo">站点 Logo</label>
+                              <div style="display:flex;align-items:center;gap:16px">
+                                <div
+                                  style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px dashed var(--am-line);border-radius:8px">
+                                  <i class="am-ic" data-icon="image" data-size="18" aria-hidden="true"></i>
+                                </div>
+                                <button class="am-btn am-btn-secondary" type="button"><span data-zh="选择图片"
+                                    data-en="Choose image">选择图片</span></button>
+                              </div>
+                              <p class="am-fhint"
+                                data-zh="可选,PNG / SVG / JPG / WebP,显示在站点侧栏顶部,并作为所有页面的收藏夹图标。"
+                                data-en="Optional. PNG / SVG / JPG / WebP, shown at the top of the site sidebar and used as the favicon of every page.">
+                              </p>
+                            </div>
+                            <div style="display:flex;justify-content:flex-end">
+                              <button class="am-btn am-btn-primary" type="button"><span data-zh="保存"
+                                  data-en="Save">保存</span></button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section class="am-panel am-p24">
+                          <h2 class="am-h2t" data-zh="站点文件夹" data-en="Site folder">站点文件夹</h2>
+                          <p class="am-path">C:/Sites/Plainstruct 演示站点</p>
+                          <p class="am-fhint" data-zh="站点数据都保存在本地文件夹中,备份即复制。"
+                            data-en="All site data stays in this local folder. Copy it to back up."></p>
+                          <button class="am-btn am-btn-secondary" type="button" style="margin-top:12px"><i class="am-ic"
+                              data-icon="external" data-size="15" aria-hidden="true"></i><span data-zh="打开文件夹"
+                              data-en="Open folder">打开文件夹</span></button>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 构建站点 -->
+                  <div class="am-view" data-vp="build" hidden>
+                    <header class="am-vhead">
+                      <div style="min-width:0">
+                        <p class="t" data-zh="构建站点" data-en="Build site">构建站点</p>
+                        <p class="s" data-zh="将 Markdown 渲染为静态页面,链接自动保持相对路径。"
+                          data-en="Renders Markdown into static pages with relative links that never break.">
+                        </p>
+                      </div>
+                      <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+                        <label class="am-checkrow"><input type="checkbox" class="am-check"><span data-zh="保存后自动重建"
+                            data-en="Rebuild on save">保存后自动重建</span></label>
+                        <button class="am-btn am-btn-primary" type="button"><i class="am-ic" data-icon="box" data-size="15"
+                            aria-hidden="true"></i><span data-zh="重新构建" data-en="Rebuild">重新构建</span></button>
+                      </div>
+                    </header>
+                    <div class="am-bbody">
+                      <aside class="am-baside">
+                        <div>
+                          <h2 class="am-flabel" data-zh="构建报告" data-en="Build report">构建报告</h2>
+                          <div class="am-stats">
+                            <span class="am-stat"><b>5</b><span data-zh="页面" data-en="Pages">页面</span></span>
+                            <span class="am-stat"><b>2</b><span data-zh="资源" data-en="Assets">资源</span></span>
+                            <span class="am-stat"><b>38</b><span data-zh="耗时(ms)" data-en="Time (ms)">耗时(ms)</span></span>
+                          </div>
+                        </div>
+                        <div>
+                          <h2 class="am-flabel" data-zh="所有链接均有效。" data-en="All links resolve.">所有链接均有效。</h2>
+                        </div>
+                        <div class="am-bactions">
+                          <button class="am-btn am-btn-secondary" type="button"><i class="am-ic" data-icon="window"
+                              data-size="15" aria-hidden="true"></i><span data-zh="独立窗口"
+                              data-en="Open in window">独立窗口</span></button>
+                          <button class="am-btn am-btn-secondary" type="button"><i class="am-ic" data-icon="external"
+                              data-size="15" aria-hidden="true"></i><span data-zh="打开输出目录"
+                              data-en="Open output folder">打开输出目录</span></button>
+                        </div>
+                      </aside>
+                      <section class="am-bmain">
+                        <div class="am-pvhead">
+                          <span class="t" data-zh="站点预览" data-en="Site preview">站点预览</span>
+                          <span class="s" data-zh="预览即最终产物,链接与发布后完全一致。"
+                            data-en="The preview is the final output — links match the published site exactly.">
+                          </span>
+                        </div>
+                        <div class="am-bpv">
+                          <div class="am-topbar">
+                            <button class="am-menu" type="button" aria-label="文档列表">
+                              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                                <path d="M2.5 4.5h13M2.5 9h13M2.5 13.5h13"></path>
+                              </svg>
+                            </button>
+                            <span class="am-crumbs"><span class="cur" data-zh="首页" data-en="Home">首页</span></span>
+                            <span class="am-brand">
+                              <b data-zh="演示站点" data-en="Demo Site">演示站点</b>
+                              <small data-zh="素构自带的示例文档站"
+                                data-en="The sample docs bundled with Plainstruct">素构自带的示例文档站</small>
+                            </span>
+                          </div>
+                          <div class="am-pbody">
+                            <div class="am-pscroll">
+                              <article class="am-psdoc" id="amBPVDoc"></article>
+                              <footer class="am-psfoot">
+                                <a href="#" data-zh="由 Plainstruct 创建" data-en="Made with Plainstruct">由 Plainstruct
+                                  创建</a>
+                              </footer>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+
+                  <!-- 主题 -->
+                  <div class="am-view" data-vp="theme" hidden>
+                    <header class="am-vhead">
+                      <div style="min-width:0">
+                        <p class="t" data-zh="主题" data-en="Themes">主题</p>
+                        <p class="s" data-zh="选择站点主题,调整配置,或制作自己的模板。"
+                          data-en="Pick a theme, tweak its settings, or craft your own template."></p>
+                      </div>
+                      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+                        <button class="am-btn am-btn-secondary" type="button"><i class="am-ic" data-icon="download"
+                            data-size="15" aria-hidden="true"></i><span data-zh="导入 ZIP"
+                            data-en="Import ZIP">导入 ZIP</span></button>
+                        <button class="am-btn am-btn-secondary" type="button"><i class="am-ic" data-icon="copy"
+                            data-size="15" aria-hidden="true"></i><span data-zh="从内置主题复制"
+                            data-en="Duplicate from built-in">从内置主题复制</span></button>
+                      </div>
+                    </header>
+                    <div class="am-bbody">
+                      <aside class="am-taside">
+                        <h2 class="am-tlabel" data-zh="内置" data-en="Built-in">内置</h2>
+                        <div class="am-tlist">
+                          <div class="am-theme-item current">
+                            <div style="flex:1;min-width:0">
+                              <p class="nm">素构 · 浅色</p>
+                              <p class="v">v1.3.0</p>
+                            </div>
+                            <span class="am-badge" data-zh="当前主题" data-en="Active theme">当前主题</span>
+                            <div class="am-tact">
+                              <button class="am-ib" type="button" data-icon="pencil" data-size="14"
+                                data-zh-title="复制为新主题" data-en-title="Duplicate as new"
+                                aria-label="复制为新主题"></button>
+                              <button class="am-ib" type="button" data-icon="download" data-size="14"
+                                data-zh-title="导出 ZIP" data-en-title="Export ZIP" aria-label="导出 ZIP"></button>
+                            </div>
+                          </div>
+                          <div class="am-theme-item">
+                            <div style="flex:1;min-width:0">
+                              <p class="nm">素构 · 暗色</p>
+                              <p class="v">v1.3.0</p>
+                            </div>
+                            <div class="am-tact">
+                              <button class="am-ib" type="button" data-icon="check" data-size="14"
+                                data-zh-title="启用" data-en-title="Activate" aria-label="启用"></button>
+                              <button class="am-ib" type="button" data-icon="pencil" data-size="14"
+                                data-zh-title="复制为新主题" data-en-title="Duplicate as new"
+                                aria-label="复制为新主题"></button>
+                              <button class="am-ib" type="button" data-icon="download" data-size="14"
+                                data-zh-title="导出 ZIP" data-en-title="Export ZIP" aria-label="导出 ZIP"></button>
+                            </div>
+                          </div>
+                        </div>
+                        <h2 class="am-tlabel" style="margin-top:20px" data-zh="自定义" data-en="Custom">自定义</h2>
+                        <p class="am-tempty" data-zh="还没有自定义主题,可导入 ZIP 或从内置主题复制。"
+                          data-en="No custom themes yet. Import a ZIP or duplicate a built-in theme."></p>
+                      </aside>
+                      <section style="display:flex;flex-direction:column;flex:1;min-width:0">
+                        <div class="am-tabs">
+                          <button class="am-tab active" type="button"><span data-zh="主题配置 · 素构 · 浅色"
+                              data-en="Theme settings · 素构 · 浅色">主题配置 · 素构 · 浅色</span></button>
+                          <button class="am-tab" type="button" disabled><span data-zh="主题制作"
+                              data-en="Theme editor">主题制作</span></button>
+                        </div>
+                        <div class="am-bbody">
+                          <div class="am-tconf">
+                            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px">
+                              <p class="am-fhint" style="margin:0" data-zh="配置会保存到当前站点,不影响主题本身。"
+                                data-en="Settings are saved per site and never modify the theme itself."></p>
+                              <button class="am-btn am-btn-ghost am-btn-sm" type="button"><i class="am-ic"
+                                  data-icon="restore" data-size="14" aria-hidden="true"></i><span data-zh="重置主题设置"
+                                  data-en="Reset settings">重置主题设置</span></button>
+                            </div>
+                            <div class="am-cfg">
+                              <div>
+                                <label class="am-flabel">强调色</label>
+                                <div class="am-swatch"><i><b></b></i><span>#333333</span></div>
+                              </div>
+                              <div>
+                                <label class="am-flabel">侧栏宽度</label>
+                                <div class="am-cfg-row">
+                                  <input type="range" class="am-range" min="200" max="360" step="10" value="260" disabled>
+                                  <span class="am-cfg-val" style="min-width:48px;text-align:right">260</span>
+                                </div>
+                              </div>
+                              <div>
+                                <label class="am-flabel">正文字体</label>
+                                <div class="am-select"><span>system</span><i class="am-ic" data-icon="chevronDown"
+                                    data-size="14" aria-hidden="true"></i></div>
+                              </div>
+                              <div>
+                                <label class="am-flabel">页面过渡动画</label>
+                                <div class="am-select"><span>淡入上浮</span><i class="am-ic" data-icon="chevronDown"
+                                    data-size="14" aria-hidden="true"></i></div>
+                              </div>
+                              <label class="am-checkrow"><input type="checkbox" class="am-check" checked><span>显示站点描述</span></label>
+                              <label class="am-checkrow"><input type="checkbox" class="am-check" checked><span>在底部显示由
+                                  Plainstruct 创建</span></label>
+                            </div>
+                          </div>
+                          <div class="am-tpv">
+                            <div class="am-pvhead">
+                              <span class="t" data-zh="预览示例文档" data-en="Sample document">预览示例文档</span>
+                              <button class="am-ib" type="button" style="margin-left:auto" data-icon="refresh"
+                                data-size="15" data-zh-title="刷新" data-en-title="Refresh"
+                                aria-label="刷新"></button>
+                            </div>
+                            <div class="am-bpv">
+                              <div class="am-topbar">
+                                <button class="am-menu" type="button" aria-label="文档列表">
+                                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                                    <path d="M2.5 4.5h13M2.5 9h13M2.5 13.5h13"></path>
+                                  </svg>
+                                </button>
+                                <span class="am-crumbs"><span class="cur" data-zh="首页" data-en="Home">首页</span></span>
+                                <span class="am-brand">
+                                  <b data-zh="演示站点" data-en="Demo Site">演示站点</b>
+                                  <small data-zh="素构自带的示例文档站"
+                                    data-en="The sample docs bundled with Plainstruct">素构自带的示例文档站</small>
+                                </span>
+                              </div>
+                              <div class="am-pbody">
+                                <div class="am-pscroll">
+                                  <article class="am-psdoc" id="amTPVDoc"></article>
+                                  <footer class="am-psfoot">
+                                    <a href="#" data-zh="由 Plainstruct 创建" data-en="Made with Plainstruct">由
+                                      Plainstruct 创建</a>
+                                  </footer>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+
+                  <!-- 发布 -->
+                  <div class="am-view" data-vp="publish" hidden>
+                    <div class="am-scroll">
+                      <div class="am-col am-vstack">
+                        <header>
+                          <h1 class="am-h1" data-zh="发布到 GitHub Pages" data-en="Publish to GitHub Pages">发布到 GitHub
+                            Pages</h1>
+                          <p class="am-vsub" data-zh="用访问令牌把构建结果推送到 GitHub 仓库,无需安装 Git。"
+                            data-en="Push the built site to a GitHub repo with a personal access token — no Git needed.">
+                          </p>
+                        </header>
+
+                        <section class="am-panel am-p24">
+                          <div class="am-fgap">
+                            <div class="am-grid2">
+                              <div>
+                                <label class="am-flabel" data-zh="用户名 / 组织" data-en="User / organization">用户名 /
+                                  组织</label>
+                                <input class="am-input" type="text" readonly data-zh-placeholder="GitHub 用户名或组织名"
+                                  data-en-placeholder="GitHub username or org">
+                              </div>
+                              <div>
+                                <label class="am-flabel" data-zh="仓库名" data-en="Repository">仓库名</label>
+                                <input class="am-input" type="text" readonly data-zh-placeholder="例如:my-wiki"
+                                  data-en-placeholder="e.g. my-wiki">
+                              </div>
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="发布分支" data-en="Publish branch">发布分支</label>
+                              <input class="am-input" type="text" readonly style="width:192px" placeholder="gh-pages">
+                            </div>
+                            <div>
+                              <label class="am-flabel" data-zh="访问令牌(Token)" data-en="Access token">访问令牌(Token)</label>
+                              <input class="am-input mono" type="password" readonly data-zh-placeholder="ghp_… 或 github_pat_…"
+                                data-en-placeholder="ghp_… or github_pat_…">
+                              <p class="am-fhint"
+                                data-zh="需要 repo 权限。令牌只保存在本站点文件夹的 .plainstruct/github.json 中,不会上传。"
+                                data-en="Needs the repo scope. Stored only in this site's .plainstruct/github.json, never uploaded.">
+                              </p>
+                            </div>
+                            <label class="am-checkrow"><input type="checkbox" class="am-check"><span data-zh="仓库不存在时自动创建公开仓库"
+                                data-en="Create the public repo if it doesn't exist">仓库不存在时自动创建公开仓库</span></label>
+                            <div>
+                              <button class="am-btn am-btn-secondary" type="button" disabled><span data-zh="验证连接"
+                                  data-en="Verify connection">验证连接</span></button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section class="am-panel am-p24">
+                          <div style="display:flex;align-items:center;gap:12px">
+                            <button class="am-btn am-btn-primary" type="button" disabled><i class="am-ic" data-icon="upload"
+                                data-size="15" aria-hidden="true"></i><span data-zh="发布"
+                                data-en="Publish">发布</span></button>
+                            <span style="font-size:12.5px;color:var(--am-ink-3)" data-zh="请先构建站点,再发布。"
+                              data-en="Build the site before publishing.">请先构建站点,再发布。</span>
+                          </div>
+                          <p class="am-fhint" style="margin-top:20px" data-zh="令牌明文保存在本地,请勿在公共设备上使用。"
+                            data-en="The token is stored in plain text locally. Avoid shared computers."></p>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <figcaption data-zh="素构的完整工作区：文件树、Markdown 编辑器、实时预览，以及站点、构建、主题与发布页。这不是截图——点击左侧活动栏、文件树或预览里的链接试试。"
+          data-en="Plainstruct’s full workspace: file tree, Markdown editor, live preview, plus the site, build, theme and publish pages. Not a screenshot - click the activity bar, the file tree, or the links in the preview.">素构的完整工作区：文件树、Markdown
+          编辑器、实时预览，以及站点、构建、主题与发布页。这不是截图——点击左侧活动栏、文件树或预览里的链接试试。</figcaption>
       </figure>
     </div>
 
@@ -1602,6 +3736,465 @@ Write Markdown in folders, build with one click, preview locally, publish to Git
         });
         document.addEventListener("touchcancel", resetPtr);
       }
+    })();
+  </script>
+  <script>
+    /* ---------- 交互式工作区演示 ---------- */
+    (function () {
+      "use strict";
+      var mock = document.getElementById("appMock");
+      if (!mock) return;
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* 内联线性图标,与素构 AppIcon 同一套 24 网格 / 1.75 描边 */
+      var ICONS = {
+        doc: ["M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z", "M14 3v5h5"],
+        home: ["M3 10.5L12 3l9 7.5", "M5.5 8.5V21h13V8.5", "M9.5 21v-6h5v6"],
+        sliders: ["M4 7h16", "M4 12h16", "M4 17h16", "M9 5v4", "M15 10v4", "M7 15v4"],
+        box: ["M21 8l-9-5-9 5v8l9 5 9-5z", "M3 8l9 5 9-5", "M12 13v8"],
+        palette: ["M12 21a9 9 0 1 1 9-9c0 1.5-1.2 2.6-2.7 2.6H16a2 2 0 0 0-1.4 3.4c.3.3.4.6.4 1 0 1.1-1.2 2-3 2z", "M7.5 10.5h.01", "M12 7.5h.01", "M16.5 10.5h.01"],
+        upload: ["M12 16V4", "M6 10l6-6 6 6", "M4 20h16"],
+        download: ["M12 4v12", "M6 10l6 6 6-6", "M4 20h16"],
+        folder: ["M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"],
+        folderPlus: ["M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z", "M12 10v6", "M9 13h6"],
+        filePlus: ["M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z", "M14 3v5h5", "M12 11v6", "M9 14h6"],
+        chevronDown: ["M6 9l6 6 6-6"],
+        check: ["M5 13l4 4L19 7"],
+        checkSquare: ["M4 5h16v14H4z", "M8.5 12.5l2.5 2.5 5-5"],
+        code: ["M8 8l-4 4 4 4", "M16 8l4 4-4 4", "M13.5 5l-3 14"],
+        columns: ["M4 5h16v14H4z", "M12 5v14"],
+        eye: ["M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z", "M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"],
+        settings: ["M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.24a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.24a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.24a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.24a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z", "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"],
+        info: ["M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z", "M12 11v6", "M12 7.5h.01"],
+        quote: ["M4 5v14", "M9 7h11", "M9 12h11", "M9 17h7"],
+        listBullet: ["M9 6h12", "M9 12h12", "M9 18h12", "M4 6h.01", "M4 12h.01", "M4 18h.01"],
+        listOrdered: ["M10 6h11", "M10 12h11", "M10 18h11", "M4 6h1v4", "M4 10h2", "M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"],
+        link: ["M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71", "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"],
+        image: ["M4 5h16v14H4z", "M4 16l5-5 4 4 3-3 4 4", "M9 9.5h.01"],
+        squareCode: ["M4 5h16v14H4z", "M10 10l-2 2 2 2", "M14 10l2 2-2 2"],
+        table: ["M4 5h16v14H4z", "M12 5v14", "M4 10h16", "M4 15h16"],
+        minus: ["M5 12h14"],
+        window: ["M4 5h16v14H4z", "M4 9h16"],
+        external: ["M14 4h6v6", "M20 4L10 14", "M18 13v6H5V6h6"],
+        restore: ["M8 8h11v11H8z", "M5 16V5h11"],
+        refresh: ["M20 12a8 8 0 1 1-2.3-5.6", "M20 4v5h-5"],
+        copy: ["M9 9h11v11H9z", "M5 15H4V4h11v1"]
+      };
+
+      function svgFor(name, size) {
+        var d = ICONS[name] || [];
+        return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          d.map(function (p) { return '<path d="' + p + '"></path>'; }).join("") + "</svg>";
+      }
+      Array.prototype.forEach.call(mock.querySelectorAll("[data-icon]"), function (el) {
+        el.innerHTML = svgFor(el.getAttribute("data-icon"), el.getAttribute("data-size") || 15);
+      });
+
+      /* ---------- 演示文档(素构内置示例) ---------- */
+      var DOCS = {
+        "index.md": {
+          order: 0, dir: "",
+          md: {
+            zh: "---\ntitle: 首页\norder: 0\n---\n\n# 欢迎使用素构\n\n素构(Plainstruct)是一个本地运行的静态文档站点创建器:文件夹里写 Markdown,一键构建,发布到 GitHub Pages。\n\n- 左侧文件树管理文件夹与文档\n- 编辑与实时预览左右对照\n- 构建产物使用相对链接,部署在任何路径都不会乱\n\n## 从这里开始\n\n- [快速开始](guide/quickstart.md)\n- [Markdown 语法示例](guide/markdown.md)\n- [关于素构](about.md)\n",
+            en: "---\ntitle: Home\norder: 0\n---\n\n# Welcome to Plainstruct\n\nPlainstruct is a local-first static docs site creator: write Markdown in a folder, build with one click, publish to GitHub Pages.\n\n- A file tree on the left manages folders and documents\n- Editor and live preview, side by side\n- Relative links in the build output - deploy under any path and nothing breaks\n\n## From here\n\n- [Quick start](guide/quickstart.md)\n- [Markdown examples](guide/markdown.md)\n- [About Plainstruct](about.md)\n"
+          }
+        },
+        "guide/quickstart.md": {
+          order: 1, dir: "guide",
+          md: {
+            zh: "---\ntitle: 快速开始\norder: 1\n---\n\n# 快速开始\n\n三步建立你的第一个站点。\n\n## 1. 新建文档\n\n在左侧文件树中点击「新建文档」,输入名称即可开始写作。\n\n## 2. 构建站点\n\n切到「构建」页,点击构建。素构会把 Markdown 渲染为静态 HTML,并保持所有链接为相对路径。\n\n## 3. 发布\n\n在「发布」页填入 GitHub 用户名、仓库与访问令牌,即可推送整站。\n\n> 提示:文档之间的链接直接写 `.md` 相对路径,构建时会自动转换为 `.html`。\n",
+            en: "---\ntitle: Quick start\norder: 1\n---\n\n# Quick start\n\nThree steps to your first site.\n\n## 1. Create a document\n\nClick \"New document\" in the file tree, type a name and start writing.\n\n## 2. Build the site\n\nSwitch to \"Build\" and hit the button. Plainstruct renders the Markdown into static HTML and keeps every link relative.\n\n## 3. Publish\n\nFill in your GitHub username, repo and token on the \"Publish\" page to push the whole site.\n\n> Tip: links between documents use plain `.md` relative paths; they are rewritten to `.html` at build time.\n"
+          }
+        },
+        "guide/markdown.md": {
+          order: 2, dir: "guide",
+          md: {
+            zh: "---\ntitle: Markdown 语法示例\norder: 2\n---\n\n# Markdown 语法示例\n\n## 文本样式\n\n**加粗**、*斜体*、~~删除线~~、`行内代码`,以及[站内链接](quickstart.md)与[外部链接](https://pages.github.com/)。\n\n## 列表\n\n- 无序列表一项\n- 无序列表二项\n\n1. 有序列表一项\n2. 有序列表二项\n\n- [ ] 任务:写文档\n- [x] 任务:装素构\n\n## 代码\n\n```ts\nexport function greet(name: string): string {\n  return `你好,${name}`;\n}\n```\n\n## 表格\n\n| 功能 | 状态 |\n| --- | --- |\n| 文件管理 | 可用 |\n| 实时预览 | 可用 |\n| 主题系统 | 可用 |\n\n## 引用\n\n> 简单的结构,可靠的结果。\n",
+            en: "---\ntitle: Markdown examples\norder: 2\n---\n\n# Markdown examples\n\n## Text styles\n\n**Bold**, *italic*, ~~strikethrough~~, `inline code`, plus an [internal link](quickstart.md) and an [external link](https://pages.github.com/).\n\n## Lists\n\n- Unordered item one\n- Unordered item two\n\n1. Ordered item one\n2. Ordered item two\n\n- [ ] Task: write the docs\n- [x] Task: install Plainstruct\n\n## Code\n\n```ts\nexport function greet(name: string): string {\n  return `Hello, ${name}`;\n}\n```\n\n## Table\n\n| Feature | Status |\n| --- | --- |\n| File management | Ready |\n| Live preview | Ready |\n| Theme system | Ready |\n\n## Quote\n\n> Simple structure, reliable results.\n"
+          }
+        },
+        "about.md": {
+          order: 9, dir: "",
+          md: {
+            zh: "---\ntitle: 关于素构\norder: 9\n---\n\n# 关于素构\n\n素构是一个门槛低、本地运行的静态文档站点创建器。\n\n- 技术栈:Vue 3 + TypeScript + Tauri\n- 全部数据保存在你选择的文件夹里\n- 主题为 ZIP 包,可导入导出\n",
+            en: "---\ntitle: About Plainstruct\norder: 9\n---\n\n# About Plainstruct\n\nPlainstruct is a local-first static docs site creator with a low barrier to entry.\n\n- Stack: Vue 3 + TypeScript + Tauri\n- All data stays in the site folder you chose\n- Themes are ZIP packages you can import and export\n"
+          }
+        }
+      };
+      var current = "index.md";
+      var mode = "split";
+
+      function curLang() { return document.body.classList.contains("lang-zh") ? "zh" : "en"; }
+      function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+      /* ---------- 编辑器侧高亮(CodeMirror 素构浅色的近似) ---------- */
+      function edInline(t) {
+        t = esc(t);
+        t = t.replace(/`([^`]+)`/g, '<span class="am-meta">`</span><span class="am-codec">$1</span><span class="am-meta">`</span>');
+        t = t.replace(/\*\*([^*]+)\*\*/g, '<span class="am-strong">$1</span>');
+        t = t.replace(/(^|[^*])\*([^*]+)\*/g, "$1<span class=\"am-em\">$2</span>");
+        t = t.replace(/~~([^~]+)~~/g, '<span class="am-strike">$1</span>');
+        t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<span class="am-link">[$1]($2)</span>');
+        return t;
+      }
+      function hlTs(line) {
+        var t = esc(line);
+        t = t.replace(/\b(export|function|return|const|let|import|from)\b/g, '<span class="am-kw">$1</span>');
+        t = t.replace(/`([^`]*)`/g, '<span class="am-str">`$1`</span>');
+        t = t.replace(/\b(string|number|boolean)\b/g, '<span class="am-type">$1</span>');
+        t = t.replace(/\b([A-Za-z_$][\w$]*)(?=\()/g, '<span class="am-kw">$1</span>');
+        return t;
+      }
+      function edCode(md) {
+        var lines = md.split("\n");
+        var out = [], inFm = false, fmEnd = false, inFence = false, fenceTs = false;
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          if (!fmEnd && !inFence && /^---\s*$/.test(line)) {
+            out.push('<span class="am-meta">' + esc(line) + "</span>");
+            if (inFm) { inFm = false; fmEnd = true; } else inFm = true;
+            continue;
+          }
+          if (inFm) { out.push('<span class="am-meta">' + esc(line) + "</span>"); continue; }
+          if (/^\s*```/.test(line)) {
+            if (!inFence) { inFence = true; fenceTs = /^```\s*(ts|js|typescript|javascript)\s*$/.test(line); }
+            else inFence = false;
+            out.push('<span class="am-meta">' + esc(line) + "</span>");
+            continue;
+          }
+          if (inFence) { out.push(fenceTs ? hlTs(line) : esc(line)); continue; }
+          if (/^\s*---+\s*$/.test(line)) { out.push('<span class="am-meta">' + esc(line) + "</span>"); continue; }
+          var h = line.match(/^(#{1,6})\s+(.*)$/);
+          if (h) {
+            var cls = h[1].length === 1 ? " am-h1" : h[1].length === 2 ? " am-h2" : "";
+            out.push('<span class="am-h' + cls + '">' + esc(h[1]) + " " + edInline(h[2]) + "</span>");
+            continue;
+          }
+          var m = line.match(/^(\s*)(-\s+\[[ xX]\]|[-*+]|(?:\d+[.)]))(\s+)(.*)$/);
+          if (m) {
+            out.push(esc(m[1]) + '<span class="am-meta">' + esc(m[2]) + "</span>" + esc(m[3]) + edInline(m[4]));
+            continue;
+          }
+          var q = line.match(/^(\s*)(>\s?)(.*)$/);
+          if (q) { out.push(esc(q[1]) + '<span class="am-meta">' + esc(q[2]) + "</span>" + edInline(q[3])); continue; }
+          if (/^\s*\|/.test(line)) { out.push(esc(line).replace(/\|/g, '<span class="am-meta">|</span>')); continue; }
+          out.push(edInline(line));
+        }
+        return out.join("\n");
+      }
+
+      /* ---------- 预览侧渲染(与构建同源的版式) ---------- */
+      function pvInline(t) {
+        t = esc(t);
+        t = t.replace(/`([^`]+)`/g, "<code>$1</code>");
+        t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+        t = t.replace(/(^|[^*])\*([^*]+)\*/g, "$1<em>$2</em>");
+        t = t.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+        t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (_, txt, href) {
+          if (/\.md\b/.test(href)) return '<a href="#" data-doc="' + href + '">' + txt + "</a>";
+          return '<a href="' + href + '" data-ext>' + txt + "</a>";
+        });
+        return t;
+      }
+      function splitRow(l) {
+        return l.replace(/^\s*\|/, "").replace(/\|\s*$/, "").split("|").map(function (s) { return s.trim(); });
+      }
+      function pvBlocks(src) {
+        var lines = src.split("\n");
+        var out = [], i = 0, para = [];
+        function flushP() {
+          if (para.length) { out.push("<p>" + pvInline(para.join(" ")) + "</p>"); para = []; }
+        }
+        while (i < lines.length) {
+          var L = lines[i];
+          if (/^\s*$/.test(L)) { flushP(); i++; continue; }
+          var f = L.match(/^```(\w*)\s*$/);
+          if (f) {
+            flushP();
+            var buf = [], ts = /^(ts|js|typescript|javascript)$/.test(f[1]);
+            i++;
+            while (i < lines.length && !/^```\s*$/.test(lines[i])) { buf.push(lines[i]); i++; }
+            i++;
+            var code = ts ? buf.map(hlTs).join("\n") : esc(buf.join("\n"));
+            out.push("<pre><code>" + code + "</code></pre>");
+            continue;
+          }
+          var h = L.match(/^(#{1,6})\s+(.*)$/);
+          if (h) { flushP(); var n = h[1].length; out.push("<h" + n + ">" + pvInline(h[2]) + "</h" + n + ">"); i++; continue; }
+          if (/^\s*---+\s*$/.test(L)) { flushP(); out.push("<hr>"); i++; continue; }
+          if (/^\s*>/.test(L)) {
+            flushP();
+            var qs = [];
+            while (i < lines.length && /^\s*>/.test(lines[i])) { qs.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+            out.push("<blockquote><p>" + pvInline(qs.join(" ")) + "</p></blockquote>");
+            continue;
+          }
+          if (/^\s*\|/.test(L) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|?\s*$/.test(lines[i + 1])) {
+            flushP();
+            var head = splitRow(L);
+            i += 2;
+            var rows = [];
+            while (i < lines.length && /\|/.test(lines[i]) && !/^\s*$/.test(lines[i])) { rows.push(splitRow(lines[i])); i++; }
+            var tbl = "<table><thead><tr>" + head.map(function (c) { return "<th>" + pvInline(c) + "</th>"; }).join("") + "</tr></thead><tbody>";
+            rows.forEach(function (r) { tbl += "<tr>" + r.map(function (c) { return "<td>" + pvInline(c) + "</td>"; }).join("") + "</tr>"; });
+            out.push(tbl + "</tbody></table>");
+            continue;
+          }
+          var ul = L.match(/^\s*-\s+(.*)$/);
+          var ol = L.match(/^\s*\d+[.)]\s+(.*)$/);
+          if (ul || ol) {
+            flushP();
+            var ordered = !!ol;
+            var re = ordered ? /^\s*\d+[.)]\s+(.*)$/ : /^\s*-\s+(.*)$/;
+            var items = [];
+            while (i < lines.length) {
+              var mm = lines[i].match(re);
+              if (!mm) break;
+              var task = mm[1].match(/^\[([ xX])\]\s+(.*)$/);
+              if (task) items.push('<li class="task"><input type="checkbox" disabled' + (task[1] !== " " ? " checked" : "") + ">" + pvInline(task[2]) + "</li>");
+              else items.push("<li>" + pvInline(mm[1]) + "</li>");
+              i++;
+            }
+            out.push(ordered ? "<ol>" + items.join("") + "</ol>" : "<ul>" + items.join("") + "</ul>");
+            continue;
+          }
+          para.push(L.trim());
+          i++;
+        }
+        flushP();
+        return out.join("\n");
+      }
+      function parseDoc(md) {
+        var m = md.match(/^---\n([\s\S]*?)\n---\n?/);
+        var title = "", body = md;
+        if (m) {
+          var tm = m[1].match(/^title:\s*(.+)$/m);
+          if (tm) title = tm[1].trim();
+          body = md.slice(m[0].length);
+        }
+        return { title: title, body: body };
+      }
+      function titleOf(md) { return parseDoc(md).title; }
+
+      /* ---------- 预览桌面侧栏导航 ---------- */
+      function navHTML(lang) {
+        var T = lang === "en";
+        function link(path, label) {
+          return '<a class="am-pnav-link' + (current === path ? " cur" : "") + '" role="button" tabindex="0" data-doc="' + path + '">' + esc(label) + "</a>";
+        }
+        return "<ul>" +
+          "<li>" + link("index.md", T ? "Home" : "首页") + "</li>" +
+          '<li class="am-dir"><div class="am-pnav-dirrow"><button class="am-caret" type="button" aria-label="guide">' + svgFor("chevronDown", 11) + '</button><span class="am-pnav-dirname">guide</span></div>' +
+          '<div class="am-sub"><div class="am-sub-in"><ul>' +
+          link("guide/markdown.md", T ? "Markdown examples" : "Markdown 语法示例") +
+          link("guide/quickstart.md", T ? "Quick start" : "快速开始") +
+          "</ul></div></div></li>" +
+          "<li>" + link("about.md", T ? "About Plainstruct" : "关于素构") + "</li>" +
+          "</ul>";
+      }
+      function pagerHTML(lang, path) {
+        var doc = DOCS[path || current], prev = null, next = null;
+        Object.keys(DOCS).forEach(function (p) {
+          var d = DOCS[p];
+          if (d.order < doc.order && (!prev || d.order > DOCS[prev].order)) prev = p;
+          if (d.order > doc.order && (!next || d.order < DOCS[next].order)) next = p;
+        });
+        var out = "";
+        if (prev) out += '<a class="am-pgi prev" role="button" tabindex="0" data-doc="' + prev + '"><span class="tag">←</span>' + esc(titleOf(DOCS[prev].md[lang])) + "</a>";
+        if (next) out += '<a class="am-pgi next" role="button" tabindex="0" data-doc="' + next + '">' + esc(titleOf(DOCS[next].md[lang])) + '<span class="tag">→</span></a>';
+        return '<nav class="am-pager">' + out + "</nav>";
+      }
+
+      /* ---------- 渲染与切换 ---------- */
+      var docTitleEl = document.getElementById("amDocTitle");
+      var crumbsEl = document.getElementById("amCrumbs");
+      var codeEl = document.getElementById("amCode");
+      var pdocEl = document.getElementById("amPDoc");
+      var pnavEl = document.getElementById("amPNav");
+      var codeScroll = document.getElementById("amCodeScroll");
+      var pScroll = document.getElementById("amPScroll");
+      var bpvDoc = document.getElementById("amBPVDoc");
+      var tpvDoc = document.getElementById("amTPVDoc");
+
+      function applyTitles(lang) {
+        Array.prototype.forEach.call(mock.querySelectorAll("[data-zh-title]"), function (el) {
+          el.title = lang === "en" ? (el.getAttribute("data-en-title") || el.getAttribute("data-zh-title")) : el.getAttribute("data-zh-title");
+        });
+        Array.prototype.forEach.call(mock.querySelectorAll("[data-zh-placeholder]"), function (el) {
+          el.setAttribute("placeholder", lang === "en" ? (el.getAttribute("data-en-placeholder") || el.getAttribute("data-zh-placeholder")) : el.getAttribute("data-zh-placeholder"));
+        });
+        Array.prototype.forEach.call(mock.querySelectorAll("[data-zh-value]"), function (el) {
+          if ("value" in el) el.value = lang === "en" ? (el.getAttribute("data-en-value") || el.getAttribute("data-zh-value")) : el.getAttribute("data-zh-value");
+        });
+      }
+      function renderAll(animate) {
+        var lang = curLang();
+        var doc = DOCS[current];
+        var parsed = parseDoc(doc.md[lang]);
+        var apply = function () {
+          docTitleEl.textContent = parsed.title;
+          crumbsEl.innerHTML = (doc.dir ? "<span>" + esc(doc.dir) + '</span><span class="sep">/</span>' : "") + '<span class="cur">' + esc(parsed.title) + "</span>";
+          codeEl.innerHTML = edCode(doc.md[lang]);
+          pdocEl.innerHTML = '<h1 class="am-pt">' + esc(parsed.title) + '</h1><div class="am-pb">' + pvBlocks(parsed.body) + "</div>" + pagerHTML(lang, current);
+          /* 构建页与主题页的站点预览固定展示首页 */
+          var homeParsed = parseDoc(DOCS["index.md"].md[lang]);
+          var homeHTML = '<h1 class="am-pt">' + esc(homeParsed.title) + '</h1><div class="am-pb">' + pvBlocks(homeParsed.body) + "</div>" + pagerHTML(lang, "index.md");
+          bpvDoc.innerHTML = homeHTML;
+          tpvDoc.innerHTML = homeHTML;
+          pnavEl.innerHTML = navHTML(lang);
+          codeScroll.scrollTop = 0;
+          pScroll.scrollTop = 0;
+        };
+        if (animate && !reduce) {
+          codeEl.classList.add("out");
+          pdocEl.classList.add("out");
+          setTimeout(function () {
+            apply();
+            requestAnimationFrame(function () { codeEl.classList.remove("out"); pdocEl.classList.remove("out"); });
+          }, 130);
+        } else apply();
+        applyTitles(lang);
+      }
+      function resolveDoc(href) {
+        if (!href) return null;
+        if (DOCS[href]) return href;
+        var dir = DOCS[current].dir;
+        var p = dir ? dir + "/" + href : href;
+        return DOCS[p] ? p : null;
+      }
+      function openDoc(path) {
+        if (!path || !DOCS[path] || path === current) return;
+        current = path;
+        Array.prototype.forEach.call(mock.querySelectorAll(".am-row[data-doc]"), function (r) {
+          r.classList.toggle("on", r.getAttribute("data-doc") === path);
+        });
+        renderAll(true);
+      }
+
+      /* 活动栏视图切换:内容 / 站点 / 构建 / 主题 / 发布 */
+      var views = {};
+      Array.prototype.forEach.call(mock.querySelectorAll(".am-view"), function (v) {
+        views[v.getAttribute("data-vp")] = v;
+      });
+      function setView(v) {
+        if (!views[v] || mock.getAttribute("data-view") === v) return;
+        mock.setAttribute("data-view", v);
+        Object.keys(views).forEach(function (k) {
+          var el = views[k];
+          var on = k === v;
+          el.hidden = !on;
+          el.classList.remove("in");
+          if (on && !reduce) {
+            void el.offsetWidth;
+            el.classList.add("in");
+          }
+        });
+        Array.prototype.forEach.call(mock.querySelectorAll(".am-act-btn"), function (b) {
+          b.classList.toggle("on", b.getAttribute("data-vp") === v);
+        });
+      }
+
+      /* 点击委托:活动栏 / 文件树行 / guide 折叠 / 预览链接 / 上下篇 / 侧栏导航 */
+      mock.addEventListener("click", function (e) {
+        var t = e.target;
+        var act = t.closest(".am-act-btn[data-vp]");
+        if (act) { setView(act.getAttribute("data-vp")); return; }
+        var caret = t.closest(".am-caret");
+        if (caret) {
+          var host = caret.closest(".am-dir");
+          if (host) host.classList.toggle("closed");
+          return;
+        }
+        if (t.closest("#amGuideRow")) {
+          document.getElementById("amGuideDir").classList.toggle("closed");
+          return;
+        }
+        var row = t.closest(".am-row[data-doc]");
+        if (row) { openDoc(row.getAttribute("data-doc")); return; }
+        var nav = t.closest("[data-doc]");
+        if (nav) { e.preventDefault(); openDoc(resolveDoc(nav.getAttribute("data-doc"))); return; }
+        if (t.closest("[data-ext]") || t.closest("#amFoot")) e.preventDefault();
+      });
+      mock.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var el = e.target.closest ? e.target.closest("[data-doc]") : null;
+        if (el) { e.preventDefault(); openDoc(resolveDoc(el.getAttribute("data-doc"))); }
+      });
+
+      /* 显示模式:仅编辑 / 对照 / 仅预览。
+         预览窗格按设计稿宽度 ≥900px 切换桌面侧栏,与真实 iframe 的断点一致 */
+      var splitEl = document.getElementById("amSplit");
+      var previewPane = splitEl.querySelector(".am-preview");
+      var ratio = 0.52;
+      function updatePreviewLayout() {
+        var w = mode === "preview" ? 1148 : mode === "edit" ? 0 : 1148 * (1 - ratio) - 1;
+        previewPane.classList.toggle("wide", w >= 900);
+      }
+      Array.prototype.forEach.call(mock.querySelectorAll(".am-mode"), function (b) {
+        b.addEventListener("click", function () {
+          mode = b.getAttribute("data-mode");
+          splitEl.setAttribute("data-mode", mode);
+          Array.prototype.forEach.call(mock.querySelectorAll(".am-mode"), function (x) {
+            x.classList.toggle("on", x === b);
+          });
+          updatePreviewLayout();
+        });
+      });
+
+      /* 分栏拖动 */
+      var divider = document.getElementById("amDivider");
+      var editorPane = document.getElementById("amEditorPane");
+      var dragging = false;
+      divider.addEventListener("pointerdown", function (e) {
+        dragging = true;
+        divider.classList.add("drag");
+        divider.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+      divider.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        var r = splitEl.getBoundingClientRect();
+        ratio = Math.min(0.8, Math.max(0.2, (e.clientX - r.left) / r.width));
+        editorPane.style.flexBasis = (ratio * 100).toFixed(2) + "%";
+        updatePreviewLayout();
+      });
+      ["pointerup", "pointercancel"].forEach(function (t) {
+        divider.addEventListener(t, function () {
+          dragging = false;
+          divider.classList.remove("drag");
+        });
+      });
+
+      /* 滚动比例同步(编辑器 -> 预览) */
+      codeScroll.addEventListener("scroll", function () {
+        if (mode !== "split") return;
+        var max = codeScroll.scrollHeight - codeScroll.clientHeight;
+        if (max <= 0) return;
+        var pMax = pScroll.scrollHeight - pScroll.clientHeight;
+        if (pMax <= 0) return;
+        pScroll.scrollTop = (codeScroll.scrollTop / max) * pMax;
+      }, { passive: true });
+
+      /* 语言切换联动(正文与提示文案由渲染函数负责) */
+      var lastLang = curLang();
+      if ("MutationObserver" in window) {
+        new MutationObserver(function () {
+          var l = curLang();
+          if (l !== lastLang) { lastLang = l; renderAll(false); }
+        }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+      }
+
+      /* 1440×900 设计稿等比缩放 */
+      var stage = document.getElementById("appStage");
+      function fit() {
+        if (stage) stage.style.setProperty("--am-scale", String(stage.clientWidth / 1440));
+      }
+      if ("ResizeObserver" in window && stage) new ResizeObserver(fit).observe(stage);
+      window.addEventListener("resize", fit);
+      fit();
+      updatePreviewLayout();
+
+      renderAll(false);
     })();
   </script>
 </body>
